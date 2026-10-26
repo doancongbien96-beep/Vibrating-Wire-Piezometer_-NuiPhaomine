@@ -31,7 +31,7 @@ const VWP_DATA = {"source":"East Open Pit - Piezometers (updating).xlsx","latest
 </script>
 <script>
 (()=>{'use strict';
-const sensors=VWP_DATA.sensors.filter(s=>s.borehole!=='BH-OD1'),rain=VWP_DATA.rainfall;const groups=[...new Set(sensors.map(s=>s.borehole))].map(id=>({id,sensors:sensors.filter(s=>s.borehole===id)}));let selectedGroup=groups.find(g=>g.sensors.some(s=>s.name==='VWP1-1'))?.id||groups[0]?.id||'',view='overview';
+const sensors=VWP_DATA.sensors,rain=VWP_DATA.rainfall;const groups=[...new Set(sensors.map(s=>s.borehole))].map(id=>({id,sensors:sensors.filter(s=>s.borehole===id)}));let selectedGroup=groups.find(g=>g.sensors.some(s=>s.name==='VWP1-1'))?.id||groups[0]?.id||'',view='overview';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fmt=(x,d=2)=>Number.isFinite(Number(x))?Number(x).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
