@@ -60,8 +60,8 @@ function drawChart(){
  ctx.font='10px Georgia,serif';ctx.lineWidth=1;ctx.strokeStyle='#c9c9c9';ctx.fillStyle='#111';
  for(let v=0;v<=80;v+=10){let yy=y(v);ctx.save();ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(p.l,yy);ctx.lineTo(w-p.r,yy);ctx.stroke();ctx.restore();ctx.textAlign='right';ctx.fillText(String(v),p.l-9,yy+3)}
  for(let mm=0;mm<=250;mm+=50){ctx.textAlign='left';ctx.fillText(String(mm),w-p.r+8,rainY(mm)+3)}
- let month=new Date(Date.UTC(new Date(t0).getUTCFullYear(),new Date(t0).getUTCMonth(),1));
- while(month.getTime()<=t1){let xx=x(month.toISOString().slice(0,10));ctx.save();ctx.setLineDash([2,3]);ctx.strokeStyle='#d3d3d3';ctx.beginPath();ctx.moveTo(xx,p.t);ctx.lineTo(xx,p.t+plotH);ctx.stroke();ctx.restore();ctx.save();ctx.translate(xx+2,p.t+plotH+30);ctx.rotate(-Math.PI/4);ctx.textAlign='left';ctx.fillStyle='#222';ctx.font='10px Georgia,serif';ctx.fillText(month.toLocaleDateString('en-GB',{month:'short'})+'-'+String(month.getUTCFullYear()).slice(-2),0,0);ctx.restore();month.setUTCMonth(month.getUTCMonth()+1)}
+ let monthIndex=0,month=new Date(Date.UTC(new Date(t0).getUTCFullYear(),new Date(t0).getUTCMonth(),1));
+ while(month.getTime()<=t1){let xx=x(month.toISOString().slice(0,10));ctx.save();ctx.setLineDash([2,3]);ctx.strokeStyle='#d3d3d3';ctx.beginPath();ctx.moveTo(xx,p.t);ctx.lineTo(xx,p.t+plotH);ctx.stroke();ctx.restore();if(monthIndex%2===0){ctx.save();ctx.translate(xx+2,p.t+plotH+30);ctx.rotate(-Math.PI/4);ctx.textAlign='left';ctx.fillStyle='#222';ctx.font='10px Georgia,serif';ctx.fillText(month.toLocaleDateString('en-GB',{month:'short'})+'-'+String(month.getUTCFullYear()).slice(-2),0,0);ctx.restore()}month.setUTCMonth(month.getUTCMonth()+1);monthIndex++}
  ctx.save();ctx.beginPath();ctx.rect(p.l,p.t,plotW,plotH);ctx.clip();
  ctx.fillStyle='#002060';let bw=Math.max(1,Math.min(2.2,plotW/((t1-t0)/86400000)*.78));
  for(let r of rainRows){if(r.mm<=0)continue;let xx=x(r.date),yy=rainY(Math.min(r.mm,250));ctx.fillRect(xx-bw/2,yy,bw,p.t+plotH-yy)}
