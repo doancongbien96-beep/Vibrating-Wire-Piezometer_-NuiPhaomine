@@ -58,7 +58,8 @@ function drawChart(){
  let colors=['#0736ff','#ffb400','#8064a2','#167c72','#5b7d3c'];
  ctx.fillStyle='#111';ctx.textAlign='center';ctx.font='bold 16px Georgia,serif';ctx.fillText('Vibrating Wire Piezometer ('+(series[0].name.split('-')[0]||'VWP')+')',w/2,25);
  ctx.font='10px Georgia,serif';ctx.lineWidth=1;ctx.strokeStyle='#c9c9c9';ctx.fillStyle='#111';
- for(let v=0;v<=80;v+=10){let yy=y(v);ctx.save();ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(p.l,yy);ctx.lineTo(w-p.r,yy);ctx.stroke();ctx.restore();ctx.textAlign='right';ctx.fillText(String(v),p.l-9,yy+3);ctx.textAlign='left';ctx.fillText(String(Math.round(v/80*250)),w-p.r+8,yy+3)}
+ for(let v=0;v<=80;v+=10){let yy=y(v);ctx.save();ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(p.l,yy);ctx.lineTo(w-p.r,yy);ctx.stroke();ctx.restore();ctx.textAlign='right';ctx.fillText(String(v),p.l-9,yy+3)}
+ for(let mm=0;mm<=250;mm+=50){ctx.textAlign='left';ctx.fillText(String(mm),w-p.r+8,rainY(mm)+3)}
  let month=new Date(Date.UTC(new Date(t0).getUTCFullYear(),new Date(t0).getUTCMonth(),1));
  while(month.getTime()<=t1){let xx=x(month.toISOString().slice(0,10));ctx.save();ctx.setLineDash([2,3]);ctx.strokeStyle='#d3d3d3';ctx.beginPath();ctx.moveTo(xx,p.t);ctx.lineTo(xx,p.t+plotH);ctx.stroke();ctx.restore();ctx.save();ctx.translate(xx+2,p.t+plotH+8);ctx.rotate(-Math.PI/4);ctx.textAlign='left';ctx.fillStyle='#222';ctx.font='10px Georgia,serif';ctx.fillText(month.toLocaleDateString('en-GB',{month:'short'})+'-'+String(month.getUTCFullYear()).slice(-2),0,0);ctx.restore();month.setUTCMonth(month.getUTCMonth()+1)}
  ctx.save();ctx.beginPath();ctx.rect(p.l,p.t,plotW,plotH);ctx.clip();
